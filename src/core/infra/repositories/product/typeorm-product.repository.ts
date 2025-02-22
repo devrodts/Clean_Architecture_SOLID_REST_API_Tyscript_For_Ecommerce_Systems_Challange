@@ -51,14 +51,15 @@ export class TypeOrmProductRepository implements ProductRepository {
   }
 
   private toOrmEntity(domain: ProductEntity): TypeOrmProductEntity {
-    const entity = new TypeOrmProductEntity();
-    entity.id = domain.id;
-    entity.name = domain.name;
-    entity.description = domain.description;
-    entity.price = domain.price;
-    entity.stock = domain.stock;
-    entity.createdAt = domain.createdAt;
-    entity.updatedAt = domain.updatedAt;
+    const entity = new TypeOrmProductEntity(
+      domain.id,
+      domain.name,
+      domain.description,
+      domain.price,
+      domain.stock,
+      domain.createdAt,
+      domain.updatedAt,
+    );
     return entity;
   }
 }

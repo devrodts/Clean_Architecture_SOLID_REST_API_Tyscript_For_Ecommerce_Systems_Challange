@@ -3,6 +3,26 @@ import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateCol
 
 @Entity('products')
 export class TypeOrmProductEntity {
+
+  constructor(
+    id: string,
+    name: string,
+    description: string,
+    price: number,
+    stock: number,
+    createdAt: Date,
+    updatedAt: Date,
+  ) {
+    this.id = id;
+    this.name = name;
+    this.description = description;
+    this.price = price;
+    this.stock = stock;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
+  }
+
+
   @PrimaryGeneratedColumn('uuid')
   id: string;
 

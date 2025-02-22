@@ -14,7 +14,7 @@ import {
   import { CreateProductUseCase } from 'src/core/application/usecases/product';
 import { CreateProductRequest } from '../../dtos/create-product.dto';
 import { ProductResponse } from '../../dtos/product-response.dto';
-import { UpdateProductRequest } from '../../dtos/update-product.dto';
+import { UpdateProductRequest } from '../../dtos/update-product.request';
 import { ProductEntity } from 'src/core/domain/entities/product/product.entity';
 import { GetProductUseCase, ListProductsUseCase, UpdateProductUseCase, DeleteProductUseCase } from 'src/core/application/usecases/product';
 

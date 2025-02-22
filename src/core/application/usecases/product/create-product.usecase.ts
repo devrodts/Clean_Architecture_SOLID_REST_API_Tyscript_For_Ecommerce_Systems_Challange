@@ -12,13 +12,12 @@ export class CreateProductUseCase {
   ) {}
 
   async execute(input: CreateProductRequest): Promise<ProductEntity> {
-    // 1. Cria a entidade de domínio usando o factory method
     const product = ProductEntity.create({
       name: input.name,
       description: input.description,
       price: input.price,
       stock: input.stock,
-    });
+    }); 
     await this.productRepository.save(product);
     return product;
   }

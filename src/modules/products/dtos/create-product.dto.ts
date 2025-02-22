@@ -2,6 +2,19 @@
 import { IsString, Length, IsNumber, Min, IsInt } from 'class-validator';
 
 export class CreateProductRequest {
+
+  constructor(
+    name: string,
+    description: string,
+    price: number,
+    stock: number,
+  ) {
+    this.name = name;
+    this.description = description;
+    this.price = price;
+    this.stock = stock;
+  }
+
   @IsString()
   @Length(3, 100)
   name: string;
