@@ -20,4 +20,9 @@ export class ProductsService {
     }
     return product;
   }
+
+  async create(product: ProductEntity): Promise<ProductEntity | void>{
+    const newProduct = await this.productRepository.create(product)
+    return newProduct;
+  }
 }
