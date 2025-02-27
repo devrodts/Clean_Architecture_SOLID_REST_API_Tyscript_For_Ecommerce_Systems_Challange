@@ -1,54 +1,60 @@
-import { v4 as uuidv4 } from 'uuid';
+import { Column, CreateDateColumn, UpdateDateColumn } from "typeorm";
 
-interface ProductProps {
-  name: string;
-  description: string;
-  price: number;
-  stock: number;
-}
+import { Entity } from "typeorm";
 
+import { PrimaryGeneratedColumn } from "typeorm";
+
+import { IsDate, IsString, Length } from "class-validator";
+
+@Entity('products')
 export class ProductEntity {
-    constructor(
-      public readonly id: string,
-      public name: string,
-      public description: string,
-      public price: number,
-      public stock: number,
-      public readonly createdAt: Date = new Date(),
-      public updatedAt: Date = new Date()
-    ) {
-      this.validate(); 
-    }
-  
-    public validate(): void {
-      if (this.price <= 0) {
-        throw new Error('Price must be greater than zero');
-      }
-      if (this.stock < 0) {
-        throw new Error('Stock cannot be negative');
-      }
-      if (this.name.length < 3) {
-        throw new Error('Name must be at least 3 characters');
-      }
-      if (this.description.length < 10) {
-        throw new Error('Description must be at least 10 characters');
-      }
-    }
-  
-    public update(props: Partial<Omit<ProductEntity, 'id' | 'createdAt'>>): void {
-      Object.assign(this, props);
-      this.updatedAt = new Date();
-      this.validate();
-    }
 
-    public static create(props: ProductProps): ProductEntity {
-        return new ProductEntity(
-            uuidv4(),
-            props.name,
-            props.description,
-            props.price,    
-            props.stock
-        );
-    }
-
+  constructor(
+    id: string,
+    name: string,
+    description: string,
+    price: number,
+    stock: number,
+    createdAt: Date,
+    updatedAt: Date,
+  ) {
+    this.id = id;
+    this.name = name;
+    this.description = description;
+    this.price = price;
+    this.stock = stock;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
   }
+
+    @PrimaryGeneratedColumn('uuid')
+    id: string;
+
+    @Column()
+    @IsString()
+    @Length(3, 100)
+    name: string;
+
+    @Column()
+    @IsString()
+    @Length(10, 500)
+    description: string;
+
+    @Column({ type: 'decimal' })
+    price: number;
+
+    @Column({
+      type: 'int',
+      nullable: false,
+      default: 0
+    })
+    
+    stock: number;
+
+    @CreateDateColumn()
+    @IsDate()
+    createdAt: Date;
+
+    @UpdateDateColumn()
+    updatedAt: Date;
+} 
