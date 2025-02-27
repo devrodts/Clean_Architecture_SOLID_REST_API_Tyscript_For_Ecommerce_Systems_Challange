@@ -24,7 +24,7 @@ export class TypeOrmProductRepository implements ProductRepository {
     return entities.map(entity => this.toDomain(entity));
   }
 
-  async save(product: ProductEntity): Promise<void> {
+  async create(product: ProductEntity): Promise<void> {
     const entity = this.toOrmEntity(product);
     await this.ormRepo.save(entity);
   }
