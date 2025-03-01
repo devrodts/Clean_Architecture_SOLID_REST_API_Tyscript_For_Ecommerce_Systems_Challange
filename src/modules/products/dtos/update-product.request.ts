@@ -1,5 +1,5 @@
 // src/modules/products/dtos/update-product.request.ts
-import { IsString, IsOptional, IsNumber, Min, IsInt, Length } from 'class-validator';
+import { IsString, IsOptional, IsNumber, Min, IsInt, Length, IsDate } from 'class-validator';
 
 export class UpdateProductRequest {
   @IsString()
@@ -24,4 +24,10 @@ export class UpdateProductRequest {
   @IsInt()
   @Min(0)
   stock?: number;
+
+  @IsDate()
+  createdAt?: Date;
+
+  @IsDate()
+  updatedAt?: Date;
 }
