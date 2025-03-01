@@ -1,10 +1,12 @@
-import { Column, CreateDateColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, UpdateDateColumn, ManyToOne } from "typeorm";
 
 import { Entity } from "typeorm";
 
 import { PrimaryGeneratedColumn } from "typeorm";
 
 import { IsDate, IsString, Length } from "class-validator";
+
+import { CategoriesEntity } from "../categories/categories.entity";
 
 @Entity('products')
 
@@ -18,6 +20,7 @@ export class ProductEntity {
     stock: number,
     createdAt: Date,
     updatedAt: Date,
+    category: CategoriesEntity,
   ) {
     this.id = id;
     this.name = name;
@@ -26,6 +29,7 @@ export class ProductEntity {
     this.stock = stock;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
+    this.category = category;
   }
 
     @PrimaryGeneratedColumn('uuid')
@@ -58,4 +62,7 @@ export class ProductEntity {
 
     @UpdateDateColumn()
     updatedAt: Date;
+
+    @ManyToOne(() => CategoriesEntity, (category) => category.products)
+    category: CategoriesEntity;
 } 

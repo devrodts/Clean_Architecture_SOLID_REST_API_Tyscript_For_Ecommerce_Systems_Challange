@@ -1,14 +1,14 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ProductsController } from '../controllers/products/products.controller';
+import { ProductsController } from '../controllers/products.controller';
 import {
   CreateProductUseCase,
   DeleteProductUseCase,
   GetProductUseCase,
   ListProductsUseCase,
   UpdateProductUseCase,
-} from 'src/core/application/usecases/product';
-import { ProductsService } from 'src/core/application/services/product/products.service';
+} from 'src/core/application/usecases/products';
+import { ProductsService } from 'src/core/application/services/products/products.service';
 import { ProductEntity } from 'src/core/domain/entities/product/product.entity';
 import { ProductRepository } from 'src/core/domain/repositories/product/product.repository';
 @Module({
