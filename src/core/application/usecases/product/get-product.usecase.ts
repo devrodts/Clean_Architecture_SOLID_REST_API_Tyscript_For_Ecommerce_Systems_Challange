@@ -1,17 +1,16 @@
-// src/core/application/usecases/get-product.usecase.ts
 import { Injectable, Inject, NotFoundException } from '@nestjs/common';
-import { ProductRepository } from 'src/core/domain/repositories/product.repository';
+import { ProductsService } from 'src/core/application/services/product/products.service';
 import { ProductEntity } from 'src/core/domain/entities/product/product.entity';
 
 @Injectable()
 export class GetProductUseCase {
   constructor(
-    @Inject('ProductRepository')
-    private readonly productRepository: ProductRepository,
+    @Inject('ProductService')
+    private readonly productService: ProductsService,
   ) {}
 
   async execute(id: string): Promise<ProductEntity> {
-    const product = await this.productRepository.findById(id);
+    const product = await this.productService.findProductById(id);
     
     if (!product) {
       throw new NotFoundException(`Product with ID ${id} not found`);
