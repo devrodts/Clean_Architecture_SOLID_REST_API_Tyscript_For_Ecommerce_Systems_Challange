@@ -5,7 +5,7 @@ import { ProductEntity } from 'src/core/domain/entities/product/product.entity';
 @Injectable()
 export class GetProductUseCase {
   constructor(
-    @Inject('ProductService')
+    @Inject('ProductsService')
     private readonly productService: ProductsService,
   ) {}
 

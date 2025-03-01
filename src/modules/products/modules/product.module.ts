@@ -1,9 +1,6 @@
-
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ProductsController } from '../controllers/products/products.controller';
-import { TypeOrmProductRepository } from 'src/core/infra/repositories/product/typeorm-product.repository';
-import { TypeOrmProductEntity } from 'src/core/infra/database/entities/product/entities/typeorm-product.entity';
 import {
   CreateProductUseCase,
   DeleteProductUseCase,
@@ -11,14 +8,19 @@ import {
   ListProductsUseCase,
   UpdateProductUseCase,
 } from 'src/core/application/usecases/product';
-
+import { ProductsService } from 'src/core/application/services/product/products.service';
+import { ProductEntity } from 'src/core/domain/entities/product/product.entity';
+import { ProductRepository } from 'src/core/domain/repositories/product/product.repository';
 @Module({
   imports: [
-    TypeOrmModule.forFeature([TypeOrmProductEntity]),
+    TypeOrmModule.forFeature([ProductEntity]),
   ],
   controllers: [ProductsController],
   providers: [
-    // Registro dos Use Cases
+    {
+      provide: 'ProductsService',
+      useClass: ProductsService,
+    },
     CreateProductUseCase,
     GetProductUseCase,
     ListProductsUseCase,
@@ -26,7 +28,7 @@ import {
     DeleteProductUseCase,
     {
       provide: 'ProductRepository',
-      useClass: TypeOrmProductRepository,
+      useClass: ProductRepository,
     },
   ],
 })

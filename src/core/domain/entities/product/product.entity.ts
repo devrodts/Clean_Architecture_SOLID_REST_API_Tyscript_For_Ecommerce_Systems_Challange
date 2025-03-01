@@ -7,6 +7,7 @@ import { PrimaryGeneratedColumn } from "typeorm";
 import { IsDate, IsString, Length } from "class-validator";
 
 @Entity('products')
+
 export class ProductEntity {
 
   constructor(

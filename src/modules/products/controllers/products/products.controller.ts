@@ -9,6 +9,7 @@ import {
     Delete,
     HttpCode,
     ParseUUIDPipe,
+    NotFoundException,
   } from '@nestjs/common';
 
   import { CreateProductUseCase } from 'src/core/application/usecases/product';
@@ -32,6 +33,9 @@ import { GetProductUseCase, ListProductsUseCase, UpdateProductUseCase, DeletePro
     @HttpCode(201)
     async create(@Body() body: CreateProductRequest): Promise<ProductResponse> {
       const product = await this.createUseCase.execute(body);
+      if (!product) {
+        throw new NotFoundException('Product not found');
+      }
       return this.toResponse(product);
     }
   

@@ -1,4 +1,3 @@
-// src/core/application/usecases/list-products.usecase.ts
 import { Injectable, Inject } from '@nestjs/common';
 import { ProductsService } from 'src/core/application/services/product/products.service';
 import { ProductEntity } from 'src/core/domain/entities/product/product.entity';
@@ -6,7 +5,7 @@ import { ProductEntity } from 'src/core/domain/entities/product/product.entity';
 @Injectable()
 export class ListProductsUseCase {
   constructor(
-    @Inject('ProductService')
+    @Inject('ProductsService')
     private readonly productService: ProductsService,
   ) {}
 

@@ -7,7 +7,7 @@ import { ProductsService } from 'src/core/application/services/product/products.
 export class UpdateProductUseCase {
 
   constructor(
-    @Inject('ProductService')
+    @Inject('ProductsService')
     private readonly productService: ProductsService,
   ) {}
 
