@@ -43,6 +43,7 @@ export class ProductsService {
     if (product.description !== undefined) existingProduct.description = product.description;
     if (product.price !== undefined) existingProduct.price = product.price;
     if (product.stock !== undefined) existingProduct.stock = product.stock;
+    
     const updatedProduct = await this.productRepository.updateProduct(existingProduct);
     return updatedProduct;
     } catch (error) {
