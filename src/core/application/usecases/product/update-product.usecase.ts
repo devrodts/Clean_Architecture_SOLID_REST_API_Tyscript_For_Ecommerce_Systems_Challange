@@ -1,23 +1,23 @@
-import { ProductRepository } from "src/core/domain/repositories/product.repository";
-
 import { NotFoundException, Injectable, Inject } from '@nestjs/common';
 import { UpdateProductRequest } from "src/modules/products/dtos/update-product.request";
 import { ProductEntity } from "src/core/domain/entities/product/product.entity";
+import { ProductsService } from "../../services/product/products.service";
+
 @Injectable()
 export class UpdateProductUseCase {
   constructor(
-    @Inject('ProductRepository')
-    private readonly productRepository: ProductRepository,
+    @Inject('ProductService')
+    private readonly productService: ProductsService,
   ) {}
 
   async execute(input: UpdateProductRequest): Promise<ProductEntity> {
-    const product = await this.productRepository.findById(input.id);
+
+    const product = await this.productService.findById(input.id);
     
     if (!product) {
       throw new NotFoundException(`Product ${input.id} not found`);
     }
 
-    // Atualiza apenas os campos fornecidos
     const updateData = {
       name: input.name ?? product.name,
       description: input.description ?? product.description,
@@ -25,13 +25,9 @@ export class UpdateProductUseCase {
       stock: input.stock ?? product.stock,
     };
 
-    // Atualiza a entidade
     Object.assign(product, updateData);
-    
-    // Valida a entidade atualizada
-    product.validate();
 
-    await this.productRepository.update(product);
+    await this.productService.updateProduct(product);
     return product;
   }
 }
