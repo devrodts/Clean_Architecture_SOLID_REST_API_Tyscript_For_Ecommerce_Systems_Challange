@@ -1,22 +1,22 @@
 // src/core/application/usecases/delete-product.usecase.ts
 import { Injectable, Inject, NotFoundException } from '@nestjs/common';
-import { ProductRepository } from 'src/core/domain/repositories/product.repository';
+import { ProductsService } from 'src/core/application/services/product/products.service';
 
 @Injectable()
 export class DeleteProductUseCase {
 
   constructor(
-    @Inject('ProductRepository')
-    private readonly productRepository: ProductRepository,
+    @Inject('ProductService')
+    private readonly productService: ProductsService,
   ) {}
 
   async execute(id: string): Promise<void> {
-    const exists = await this.productRepository.findById(id);
+    const exists = await this.productService.findProductById(id);
     
     if (!exists) {
       throw new NotFoundException(`Product with ID ${id} not found`);
     }
     
-    await this.productRepository.delete(id);
+    await this.productService.deleteProduct(id);
   }
 }
